@@ -17,7 +17,7 @@ class MyCustomCell: UITableViewCell {
         let uid = UIDevice.current.identifierForVendor!.uuidString
         getDataSnapshot(path: "users/\(uid)") { (snapshot) in
             let value = snapshot.value as? NSDictionary
-            var filmsWatched = value?["filmsWatched"] as? String ?? "00000"
+            var filmsWatched = value?["filmsWatched"] as? String ?? "00000000000000000000000000000000000000000000000000"
             if (filmsWatched[self.filmNum] == "0") {
                 filmsWatched = self.replace(myString: filmsWatched, self.filmNum, "1")
                 self.setValueInDatabase(path: "users/\(uid)", object: ["filmsWatched": filmsWatched])
