@@ -7,13 +7,7 @@
 //
 
 import UIKit
-
-struct defaultsKeys {
-    static let firstUseKey = "firstUseKey"
-    static let filmsWatchedKey = "filmsWatchedKey"
-}
-
-
+import Firebase
 
 class ViewController: UIViewController {
 
@@ -22,39 +16,32 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        initalizeFilmsWatched()
         tableView.delegate = self
         tableView.dataSource = self
-        if (checkIfFirstTime()) {
-            initalizeFilmsWatched()
-        }
-        //runDebug()
-    }
-    
-    func initalizeFilmsWatched() {
-        print("initalizeFilmsWatched called")
-        let defaults = UserDefaults.standard
-        defaults.set([0, 0, 0, 0, 0], forKey: defaultsKeys.filmsWatchedKey)
-    }
-    
-    func checkIfFirstTime() -> Bool {
-        print("checkIfFirstTime called")
-        let defaults = UserDefaults.standard
-        let firstTime = defaults.string(forKey: defaultsKeys.firstUseKey) ?? nil
-        if firstTime == nil {
-            defaults.set("", forKey: defaultsKeys.firstUseKey)
-            return true
-        } else {
-            return false
-        }
-    }
-    
-    func runDebug() {
-        let defaults = UserDefaults.standard
-        if let filmWatched = defaults.array(forKey: defaultsKeys.filmsWatchedKey) {
-            print(filmWatched)
-        }
+        
+        var ref: DatabaseReference!
+        ref = Database.database().reference()
+        let uid = UIDevice.current.identifierForVendor!.uuidString
+        let filmsWatchedRef = ref.child("users/\(uid)")
+        let refHandle = filmsWatchedRef.observe(DataEventType.value, with: { (snapshot) in
+            self.tableView.reloadData()
+        })
+        
     }
 
+    
+    
+    func initalizeFilmsWatched() {
+        let uid = UIDevice.current.identifierForVendor!.uuidString
+        getDataSnapshot(path: "users") { (datasnapshot) in
+            if (datasnapshot.hasChild(uid)) {
+                return
+            } else {
+                self.setValueInDatabase(path: "users/\(uid)", object: ["filmsWatched": "00000"])
+            }
+        }
+    }
 
 }
 
@@ -67,17 +54,21 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: MyCustomCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! MyCustomCell
         cell.filmNum = indexPath.row
-        let filmsWatched = returnFilmsWatched()
-        let filmValue = filmsWatched[indexPath.row] as? Int ?? 0
-        if (filmValue == 0) {
-            //cell.myImageView.image = UIImage(named: "unchecked")
-            cell.myCellButton.setImage(UIImage(named: "unchecked"), for: .normal)
-        } else if (filmValue == 1) {
-            //cell.myImageView.image = UIImage(named: "checked")
-            cell.myCellButton.setImage(UIImage(named: "checked"), for: .normal)
-        } else {
-            //cell.myImageView.image = UIImage(named: "unchecked")
-            cell.myCellButton.setImage(UIImage(named: "unchecked"), for: .normal)
+        let uid = UIDevice.current.identifierForVendor!.uuidString
+        getDataSnapshot(path: "users/\(uid)") { (snapshot) in
+            let value = snapshot.value as? NSDictionary
+            let filmsWatched = value?["filmsWatched"] as? String ?? "00000"
+            let filmValue = filmsWatched[indexPath.row]
+            if (filmValue == "0") {
+                //cell.myImageView.image = UIImage(named: "unchecked")
+                cell.myCellButton.setImage(UIImage(named: "unchecked"), for: .normal)
+            } else if (filmValue == "1") {
+                //cell.myImageView.image = UIImage(named: "checked")
+                cell.myCellButton.setImage(UIImage(named: "checked"), for: .normal)
+            } else {
+                //cell.myImageView.image = UIImage(named: "unchecked")
+                cell.myCellButton.setImage(UIImage(named: "unchecked"), for: .normal)
+            }
         }
         cell.myCellLabel.text = self.filmNames[indexPath.row]
         return cell
@@ -85,9 +76,31 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension UIViewController {
-    func returnFilmsWatched() -> [Any] {
-        let defaults = UserDefaults.standard
-        let filmsWatched = defaults.array(forKey: defaultsKeys.filmsWatchedKey) ?? [0, 0, 0, 0, 0]
-        return filmsWatched
+    func getDataSnapshot(path: String, completion: @escaping (DataSnapshot) -> ()) {
+        var ref: DatabaseReference!
+        ref = Database.database().reference()
+        ref.child("\(path)").observeSingleEvent(of: .value, with: { (snapshot) in
+            completion(snapshot)
+        }) { (error) in
+            self.showErrorMessage(messageTitle: "Error:", messageText: error.localizedDescription)
+        }
+    }
+    
+    func setValueInDatabase(path: String, object: [String: Any]) {
+        var ref: DatabaseReference!
+        ref = Database.database().reference()
+        ref.child(path).setValue(object)
+    }
+    
+    func showErrorMessage(messageTitle: String, messageText: String) {
+        let alert = UIAlertController(title: messageTitle, message: messageText, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+}
+
+extension String {
+    subscript(i: Int) -> String {
+        return String(self[index(startIndex, offsetBy: i)])
     }
 }

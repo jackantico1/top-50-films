@@ -7,21 +7,52 @@
 //
 
 import UIKit
+import Firebase
+
 class MyCustomCell: UITableViewCell {
     var filmNum: Int = 0
     @IBOutlet weak var myCellButton: UIButton!
     @IBOutlet weak var myCellLabel: UILabel!
     @IBAction func buttonPressed(_ sender: UIButton) {
-        let defaults = UserDefaults.standard
-        if var filmsWatched = defaults.array(forKey: defaultsKeys.filmsWatchedKey) {
-            if (filmsWatched[filmNum] as! Int == 0) {
-                filmsWatched[filmNum] = 1
-            } else if (filmsWatched[filmNum] as! Int == 1) {
-                filmsWatched[filmNum] = 0
+        let uid = UIDevice.current.identifierForVendor!.uuidString
+        getDataSnapshot(path: "users/\(uid)") { (snapshot) in
+            let value = snapshot.value as? NSDictionary
+            var filmsWatched = value?["filmsWatched"] as? String ?? "00000"
+            if (filmsWatched[self.filmNum] == "0") {
+                filmsWatched = self.replace(myString: filmsWatched, self.filmNum, "1")
+                self.setValueInDatabase(path: "users/\(uid)", object: ["filmsWatched": filmsWatched])
+            } else if (filmsWatched[self.filmNum] == "1") {
+                filmsWatched = self.replace(myString: filmsWatched, self.filmNum, "0")
+                self.setValueInDatabase(path: "users/\(uid)", object: ["filmsWatched": filmsWatched])
+            } else {
+                filmsWatched = self.replace(myString: filmsWatched, self.filmNum, "0")
+                self.setValueInDatabase(path: "users/\(uid)", object: ["filmsWatched": filmsWatched])
             }
-            defaults.set(filmsWatched, forKey: defaultsKeys.filmsWatchedKey)
         }
-        let newFilmsWatched = defaults.array(forKey: defaultsKeys.filmsWatchedKey)
-        print("newFilmsWatched: \(newFilmsWatched)")
+    }
+}
+
+extension UITableViewCell {
+    func getDataSnapshot(path: String, completion: @escaping (DataSnapshot) -> ()) {
+        var ref: DatabaseReference!
+        ref = Database.database().reference()
+        ref.child("\(path)").observeSingleEvent(of: .value, with: { (snapshot) in
+            completion(snapshot)
+        }) { (error) in
+            print("Error getting DataSnapshot in TableViewCell")
+        }
+    }
+    
+    func setValueInDatabase(path: String, object: [String: Any]) {
+        var ref: DatabaseReference!
+        ref = Database.database().reference()
+        ref.child(path).setValue(object)
+    }
+    
+    func replace(myString: String, _ index: Int, _ newChar: Character) -> String {
+        var chars = Array(myString)     // gets an array of characters
+        chars[index] = newChar
+        let modifiedString = String(chars)
+        return modifiedString
     }
 }
