@@ -17,7 +17,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initalizeFilmsWatched()
-        tableView.backgroundColor = UIColor.black
+        overrideUserInterfaceStyle = .dark
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -70,6 +70,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         }
         cell.myCellLabel.text = self.filmNames[indexPath.row]
         cell.backgroundColor = UIColor.black
+        cell.selectionStyle = .none
         return cell
     }
 }

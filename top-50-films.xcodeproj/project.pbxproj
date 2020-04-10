@@ -39,7 +39,7 @@
 
 /* Begin PBXFileReference section */
 		593905CD243FF4640045DEC7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		597D4FD6243F7E8E00281D25 /* top-50-films.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "top-50-films.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		597D4FD6243F7E8E00281D25 /* Top 50 Films.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Top 50 Films.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		597D4FD9243F7E8E00281D25 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		597D4FDB243F7E8E00281D25 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		597D4FDD243F7E8E00281D25 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -100,7 +100,7 @@
 		597D4FD7243F7E8E00281D25 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				597D4FD6243F7E8E00281D25 /* top-50-films.app */,
+				597D4FD6243F7E8E00281D25 /* Top 50 Films.app */,
 				597D4FEC243F7E8F00281D25 /* top-50-filmsTests.xctest */,
 				597D4FF7243F7E8F00281D25 /* top-50-filmsUITests.xctest */,
 			);
@@ -176,7 +176,7 @@
 			);
 			name = "top-50-films";
 			productName = "top-50-films";
-			productReference = 597D4FD6243F7E8E00281D25 /* top-50-films.app */;
+			productReference = 597D4FD6243F7E8E00281D25 /* Top 50 Films.app */;
 			productType = "com.apple.product-type.application";
 		};
 		597D4FEB243F7E8F00281D25 /* top-50-filmsTests */ = {
@@ -494,6 +494,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = D95BFFAXB9;
 				INFOPLIST_FILE = "top-50-films/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -501,7 +502,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "jackantico.top-50-films";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Top 50 Films";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -513,6 +514,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = D95BFFAXB9;
 				INFOPLIST_FILE = "top-50-films/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -520,7 +522,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "jackantico.top-50-films";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Top 50 Films";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
