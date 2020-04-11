@@ -22,7 +22,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="54" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="qZP-Z5-D79">
-                                <rect key="frame" x="20" y="100" width="374" height="762"/>
+                                <rect key="frame" x="20" y="100" width="374" height="712"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="54" id="VLC-d6-VAR" customClass="MyCustomCell" customModule="Top_50_Films" customModuleProvider="target">
@@ -71,18 +71,31 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PKy-60-YYX">
+                                <rect key="frame" x="20" y="820" width="374" height="42"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="Share Your List!">
+                                    <color key="titleColor" red="0.96326631309999999" green="0.96383661030000001" blue="0.27200827" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="shareYourListPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0Ab-Ww-ILX"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="qZP-Z5-D79" secondAttribute="trailing" constant="20" id="QhE-mf-mQM"/>
-                            <constraint firstItem="qZP-Z5-D79" firstAttribute="top" secondItem="i7W-p0-VaJ" secondAttribute="bottom" constant="8" id="exy-Ix-0il"/>
-                            <constraint firstItem="i7W-p0-VaJ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="krq-fi-tsl"/>
-                            <constraint firstItem="qZP-Z5-D79" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="mzz-Ur-CpG"/>
-                            <constraint firstItem="qZP-Z5-D79" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="nd6-8M-RdI"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="i7W-p0-VaJ" secondAttribute="trailing" constant="20" id="oDP-v4-8Z6"/>
-                            <constraint firstItem="i7W-p0-VaJ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="vgG-yg-1yw"/>
+                            <constraint firstItem="i7W-p0-VaJ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="1Jd-aP-kSA"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="PKy-60-YYX" secondAttribute="trailing" constant="20" id="50g-1G-RmN"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="i7W-p0-VaJ" secondAttribute="trailing" constant="20" id="8DU-Gg-Cxc"/>
+                            <constraint firstItem="PKy-60-YYX" firstAttribute="top" secondItem="qZP-Z5-D79" secondAttribute="bottom" constant="8" id="94y-u5-9JS"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="qZP-Z5-D79" secondAttribute="trailing" constant="20" id="FEg-IR-i88"/>
+                            <constraint firstItem="qZP-Z5-D79" firstAttribute="top" secondItem="i7W-p0-VaJ" secondAttribute="bottom" constant="8" id="HVp-y5-g8I"/>
+                            <constraint firstItem="qZP-Z5-D79" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="T40-9X-PBo"/>
+                            <constraint firstItem="PKy-60-YYX" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="pv1-y5-P7O"/>
+                            <constraint firstItem="PKy-60-YYX" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="sdD-iE-FOw"/>
+                            <constraint firstItem="i7W-p0-VaJ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="yN4-Hj-clM"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>

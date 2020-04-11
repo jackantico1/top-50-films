@@ -30,8 +30,27 @@ class ViewController: UIViewController {
         })
         
     }
-
     
+    @IBAction func shareYourListPressed(_ sender: UIButton) {
+        let uid = UIDevice.current.identifierForVendor!.uuidString
+        getDataSnapshot(path: "users/\(uid)") { (snapshot) in
+            let value = snapshot.value as? NSDictionary
+            var filmsWatchedStr = value?["filmsWatched"] as? String ?? "00000000000000000000000000000000000000000000000000"
+            var filmsWatchedArray: [String] = []
+            var filmsWatchedPercentage = 0
+            var counter = 0
+            for char in filmsWatchedStr {
+                if (char == "1") {
+                    filmsWatchedArray.append(self.filmNames[counter])
+                    filmsWatchedPercentage += 2
+                }
+                counter += 1
+            }
+            let sms: String = "sms:+1234567890&body=I've watched \(filmsWatchedPercentage)% of the Top 50 Films, including \(filmsWatchedArray.joined(separator: ", ")). We should try to watch some together!"
+            let strURL: String = sms.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+            UIApplication.shared.open(URL.init(string: strURL)!, options: [:], completionHandler: nil)
+        }
+    }
     
     func initalizeFilmsWatched() {
         let uid = UIDevice.current.identifierForVendor!.uuidString
